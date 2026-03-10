@@ -1,0 +1,267 @@
+export interface Creator {
+  name: string;
+  instagram: string;
+  followers: string;
+  image?: string; // Optional manual override for profile picture
+}
+
+export const creators: Creator[] = [
+  {
+    name: "Sanket Prakash",
+    instagram: "https://www.instagram.com/spiktec_",
+    followers: "2.6M",
+    image: "/profile_pics/Sanket Prakash.webp",
+  },
+  {
+    name: "Ashutosh Pratap Singh",
+    instagram: "https://www.instagram.com/technical_sapien",
+    followers: "1.2M",
+    image: "/profile_pics/Ashutosh Pratap Singh.webp",
+  },
+  {
+    name: "Manveer Singh",
+    instagram: "https://www.instagram.com/stockswithmanveer",
+    followers: "1.1M",
+    image: "/profile_pics/Manveer Singh.webp",
+  },
+  {
+    name: "Dhairya Gangwani",
+    instagram: "https://www.instagram.com/dhairyadecodes",
+    followers: "950K",
+    image: "/profile_pics/Dhairya Gangwani.webp",
+  },
+  {
+    name: "CA Bhagyashree Thakkar",
+    instagram: "https://www.instagram.com/ca.bhagyashreethakkar/",
+    followers: "862K",
+    image: "/profile_pics/CA Bhagyashree Thakkar.webp",
+  },
+  {
+    name: "Adit Yadav",
+    instagram: "https://www.instagram.com/career__adit",
+    followers: "840K",
+    image: "/profile_pics/Adit Yadav.webp",
+  },
+  {
+    name: "Satyajit",
+    instagram: "https://www.instagram.com/grownuptales",
+    followers: "740K",
+    image: "/profile_pics/Satyajit.webp",
+  },
+  {
+    name: "Sarang Yadav",
+    instagram: "https://www.instagram.com/bossofstockmarket/",
+    followers: "707K",
+    image: "/profile_pics/Sarang Yadav.webp",
+  },
+  {
+    name: "Smit Thakkar",
+    instagram: "https://www.instagram.com/iam_smitthakkar",
+    followers: "685K",
+    image: "/profile_pics/Smit Thakkar.webp",
+  },
+  {
+    name: "Isha Jaiswal",
+    instagram: "https://www.instagram.com/ca.ishajaiswal",
+    followers: "612K",
+    image: "/profile_pics/Isha Jaiswal.webp",
+  },
+  {
+    name: "Vibhu Mishra",
+    instagram: "https://www.instagram.com/thegeekymind/",
+    followers: "570K",
+    image: "/profile_pics/Vibhu Mishra.webp",
+  },
+  {
+    name: "Heena Kouser",
+    instagram: "https://www.instagram.com/heenakouser.me",
+    followers: "560K",
+    image: "/profile_pics/Heena Kouser.webp",
+  },
+  {
+    name: "Saumya Singh",
+    instagram: "https://www.instagram.com/saumya1singh",
+    followers: "500K",
+    image: "/profile_pics/Saumya Singh.webp",
+  },
+  {
+    name: "Sanjay Jaswani",
+    instagram: "https://www.instagram.com/financewithsanjay",
+    followers: "488K",
+    image: "/profile_pics/Sanjay Jaswani.webp",
+  },
+  {
+    name: "Ankita",
+    instagram: "https://www.instagram.com/financebyankita",
+    followers: "440K",
+    image: "/profile_pics/Ankita.webp",
+  },
+  {
+    name: "Vansh",
+    instagram: "https://www.instagram.com/vanshkevichaar/",
+    followers: "441K",
+    image: "/profile_pics/Vansh.webp",
+  },
+  {
+    name: "Ishaan Arora",
+    instagram: "https://www.instagram.com/ishaanarora1",
+    followers: "420K",
+    image: "/profile_pics/Ishaan Arora.webp",
+  },
+  {
+    name: "Salini Agrawal",
+    instagram: "https://www.instagram.com/financewithsalini",
+    followers: "390K",
+    image: "/profile_pics/Salini Agrawal.webp",
+  },
+  {
+    name: "Goraksh",
+    instagram: "https://www.instagram.com/the_doji",
+    followers: "365K",
+    image: "/profile_pics/Goraksh.webp",
+  },
+  {
+    name: "Radha Shrivastava",
+    instagram: "https://www.instagram.com/radha.shrivastavaa",
+    followers: "364K",
+    image: "/profile_pics/Radha Shrivastava.webp",
+  },
+  {
+    name: "Abhishek Chauhan",
+    instagram: "https://www.instagram.com/tradingmargin",
+    followers: "342K",
+    image: "/profile_pics/Abhishek Chauhan.webp",
+  },
+  {
+    name: "Madhav",
+    instagram: "https://www.instagram.com/financewithmadhav",
+    followers: "302K",
+    image: "/profile_pics/Madhav.webp",
+  },
+  {
+    name: "Mansi",
+    instagram: "https://www.instagram.com/themansichopra",
+    followers: "280K",
+    image: "/profile_pics/Mansi.webp",
+  },
+  {
+    name: "Vaibhav",
+    instagram: "https://www.instagram.com/ca.vaibhavjain",
+    followers: "278K",
+    image: "/profile_pics/Vaibhav.webp",
+  },
+  {
+    name: "Anurag Shrivastav",
+    instagram: "https://www.instagram.com/data_with_anurag/",
+    followers: "230K",
+    image: "/profile_pics/Anurag Shrivastav.webp",
+  },
+  {
+    name: "Shikhar",
+    instagram: "https://www.instagram.com/shikhar_theatrewala",
+    followers: "226K",
+    image: "/profile_pics/Shikhar.webp",
+  },
+  {
+    name: "Paras",
+    instagram: "https://www.instagram.com/i.amparas",
+    followers: "208K",
+    image: "/profile_pics/Paras.webp",
+  },
+  {
+    name: "Gautam",
+    instagram: "https://www.instagram.com/the_rich_money_trader",
+    followers: "195K",
+    image: "/profile_pics/Gautam.webp",
+  },
+  {
+    name: "Pranshu Singh",
+    instagram: "https://www.instagram.com/pr4nshu.singh",
+    followers: "190K",
+    image: "/profile_pics/Pranshu Singh.webp",
+  },
+  {
+    name: "Divyank Singh",
+    instagram: "https://www.instagram.com/thakurdivyank",
+    followers: "182K",
+    image: "/profile_pics/Divyank Singh.webp",
+  },
+  {
+    name: "Aman Pandey",
+    instagram: "https://www.instagram.com/aman_pndey",
+    followers: "160K",
+    image: "/profile_pics/Aman Pandey.webp",
+  },
+  {
+    name: "Kundan Shiv Sahani",
+    instagram: "https://www.instagram.com/thestockheist",
+    followers: "142K",
+    image: "/profile_pics/Kundan Shiv Sahani.webp",
+  },
+  {
+    name: "Kaushal Pandey",
+    instagram: "https://www.instagram.com/kaushaltalks/",
+    followers: "120K",
+    image: "/profile_pics/Kaushal Pandey.webp",
+  },
+  {
+    name: "Jyoti Vyas",
+    instagram: "https://www.instagram.com/yoursweet_hr",
+    followers: "116K",
+    image: "/profile_pics/Jyoti Vyas.webp",
+  },
+  {
+    name: "Aditi",
+    instagram: "https://www.instagram.com/byaditimishra/",
+    followers: "103K",
+    image: "/profile_pics/Aditi.webp",
+  },
+  {
+    name: "Mohit",
+    instagram: "https://www.instagram.com/mohit_sharma_ind",
+    followers: "100K",
+    image: "/profile_pics/Mohit.webp",
+  },
+  {
+    name: "Ameetkumar Sharma",
+    instagram: "https://www.instagram.com/the.monkeynomics",
+    followers: "93K",
+    image: "/profile_pics/Ameetkumar Sharma.webp",
+  },
+  {
+    name: "Vikas Vaid",
+    instagram: "https://www.instagram.com/vikasvaid_vhw",
+    followers: "84K",
+    image: "/profile_pics/Vikas Vaid.webp",
+  },
+  {
+    name: "Shainal",
+    instagram: "https://www.instagram.com/learnwithshainal",
+    followers: "60K",
+    image: "/profile_pics/Shainal.webp",
+  },
+  {
+    name: "Ayusha Singh",
+    instagram: "https://www.instagram.com/ayusha.singh_",
+    followers: "50K",
+    image: "/profile_pics/Ayusha Singh.webp",
+  },
+  {
+    name: "Abhinab Das",
+    instagram: "https://www.instagram.com/careertadka",
+    followers: "50K",
+    image: "/profile_pics/Abhinab Das.webp",
+  },
+  {
+    name: "Ansh",
+    instagram: "https://www.instagram.com/financewithkothari",
+    followers: "45K",
+    image: "/profile_pics/Ansh.webp",
+  },
+  {
+    name: "Pradhuman",
+    instagram: "https://www.instagram.com/pradhumn.chaturvedii",
+    followers: "340K",
+    image: "/profile_pics/Pradhuman.webp",
+  },
+];
