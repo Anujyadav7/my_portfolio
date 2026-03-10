@@ -42,7 +42,7 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white group"
+      className="relative min-h-[100svh] flex items-center pt-28 pb-16 lg:py-0 overflow-hidden bg-white group"
       onMouseMove={handleMouseMove}
     >
       {/* Interactive Hover Glow Background (Antigravity Cursor Follower) */}
@@ -78,15 +78,15 @@ export default function Hero() {
          />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 max-w-7xl relative z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20 xl:gap-32">
           
           {/* Left Text Content */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex-1 w-full text-center md:text-left relative z-10"
+            className="w-full lg:w-[50%] text-center lg:text-left relative z-10 flex flex-col items-center lg:items-start"
           >
             <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 bg-white shadow-sm border border-gray-100 rounded-full text-sm font-medium text-gray-700">
               <div className="flex gap-1 items-center">
@@ -98,9 +98,9 @@ export default function Hero() {
               <span className="ml-1">Open to Content & Creator Specialist Roles</span>
             </div>
             
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 mb-6 font-['Product_Sans',_Roboto,_sans-serif]">
-              Hi, I'm <br className="hidden md:block" />
-              <span className="inline-block mt-2">
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tighter text-gray-900 mb-6 font-['Product_Sans',_Roboto,_sans-serif] leading-tight flex flex-col items-center lg:items-start">
+              <span>Hi, I'm</span>
+              <span className="inline-block mt-0 sm:mt-1">
                 <span className="text-[#4285F4]">A</span>
                 <span className="text-[#EA4335]">n</span>
                 <span className="text-[#FBBC04]">u</span>
@@ -108,23 +108,23 @@ export default function Hero() {
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto md:mx-0 leading-relaxed">
+            <p className="text-base md:text-lg xl:text-xl text-gray-600 mb-8 max-w-xl lg:max-w-md xl:max-w-xl leading-relaxed text-center lg:text-left">
               Content & Operations Specialist. Reviewed and supervised 900+ scripts and videos for quality and compliance at <strong className="font-extrabold text-[#4285F4]">Physics Wallah</strong>. Expert in leveraging data and spreadsheets to investigate trends, drive strategy, and manage large-scale content pipelines securely.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <a 
                 href="https://drive.google.com/file/d/1JgkprImqecIZ2UEGocsSNo81IHE6R95N/view?usp=sharing" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2 bg-[#4285F4] text-white px-8 py-4 rounded-full font-medium transition-all hover:bg-[#3367D6] hover:shadow-lg hover:shadow-[#4285F4]/20 active:scale-95 w-full sm:w-auto justify-center"
+                className="group flex items-center gap-2 bg-[#4285F4] text-white px-8 py-3.5 rounded-full font-medium transition-all hover:bg-[#3367D6] hover:shadow-lg hover:shadow-[#4285F4]/20 active:scale-95 w-full sm:w-auto justify-center"
               >
                 <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
                 Download Resume
               </a>
               <a 
                 href="#projects" 
-                className="group flex items-center gap-2 bg-white text-gray-700 border border-gray-200 px-8 py-4 rounded-full font-medium transition-all hover:bg-gray-50 hover:border-gray-300 active:scale-95 w-full sm:w-auto justify-center"
+                className="group flex items-center gap-2 bg-white text-gray-700 border border-gray-200 px-8 py-3.5 rounded-full font-medium transition-all hover:bg-gray-50 hover:border-gray-300 active:scale-95 w-full sm:w-auto justify-center"
               >
                 View Content Operations
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -138,9 +138,9 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             style={{ x: imageParallaxX, y: imageParallaxY }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="flex-1 w-full flex justify-center md:justify-end"
+            className="w-full lg:w-[45%] flex justify-center lg:justify-end mt-8 lg:mt-0"
           >
-            <div className="relative w-full max-w-[300px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[480px]">
+            <div className="relative w-full max-w-[260px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[380px] xl:max-w-[420px]">
               {/* Profile Image with 5% precise curve + floating parallax */}
               <div className="relative overflow-hidden w-full h-auto shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] group-hover:shadow-[0_30px_70px_-15px_rgba(66,133,244,0.15)] transition-shadow duration-700 bg-gray-50/50" style={{ borderRadius: "5%" }}>
                  <motion.img 
