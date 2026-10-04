@@ -1,45 +1,61 @@
 @import "tailwindcss";
 
 :root {
-  --foreground-rgb: 32, 33, 36; /* Google Grey 900 */
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 248, 249, 250; /* Google Grey 50 */
-
-  --font-sans: var(--font-inter);
+  --font-heading: var(--font-heading);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background-color: #ffffff;
+  color: #121212;
+  background-color: #fafafa;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family:
-    var(--font-sans), "Product Sans", "Roboto", system-ui, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection {
-  background-color: #1a73e8;
-  color: white;
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  letter-spacing: -0.025em;
 }
 
-/* Custom Scrollbar - Minimal */
+p {
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+}
+
+/* Subtle architectural grid pattern */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+}
+
+/* Minimal Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f3f4;
+  background: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dadce0;
-  border-radius: 4px;
+  background: #cccccc;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #bdc1c6;
+  background: #888888;
 }
 
 .text-balance {

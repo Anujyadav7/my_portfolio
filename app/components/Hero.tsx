@@ -1,156 +1,345 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Download, ChevronRight } from "lucide-react";
-import { MouseEvent, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Play, Pause, RotateCcw, Volume2, VolumeX, Download, ArrowDown, MapPin, Mail, Phone } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export default function Hero() {
-  // Always initialize with 0 to prevent Server-Side-Rendering (SSR) Hydration mismatches
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  // Once safely mounted on the client, snap hover glow to the center
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const wasPlayingBeforeDragRef = useRef(false);
+
+  // 60fps smooth scrubber animation loop
   useEffect(() => {
-    mouseX.set(window.innerWidth / 2);
-    mouseY.set(window.innerHeight / 2);
-  }, [mouseX, mouseY]);
+    let animId: number;
 
-  // Smooth springs for parallax
-  const smoothX = useSpring(mouseX, { damping: 30, stiffness: 60 });
-  const smoothY = useSpring(mouseY, { damping: 30, stiffness: 60 });
+    const loop = () => {
+      const video = videoRef.current;
+      if (video && video.duration && !isDraggingRef.current) {
+        const ratio = video.currentTime / video.duration;
+        setProgress(ratio * 100);
+      }
+      if (isPlaying) {
+        animId = requestAnimationFrame(loop);
+      }
+    };
 
-  // Map mouse positions to distinct float speeds (parallax)
-  // Assumes a typical large screen width, clamped if larger
-  const blob1X = useTransform(smoothX, [0, 2000], [50, -50]);
-  const blob1Y = useTransform(smoothY, [0, 1200], [50, -50]);
+    if (isPlaying) {
+      animId = requestAnimationFrame(loop);
+    }
 
-  const blob2X = useTransform(smoothX, [0, 2000], [-40, 40]);
-  const blob2Y = useTransform(smoothY, [0, 1200], [-40, 40]);
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, [isPlaying]);
 
-  const blob3X = useTransform(smoothX, [0, 2000], [30, -30]);
-  const blob3Y = useTransform(smoothY, [0, 1200], [-30, 30]);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-  const imageParallaxX = useTransform(smoothX, [0, 2000], [-15, 15]);
-  const imageParallaxY = useTransform(smoothY, [0, 1200], [-15, 15]);
+    video.pause();
+    setIsPlaying(false);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+    const onLoadedMetadata = () => {
+      setDuration(video.duration || 0);
+    };
+
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    const onEnded = () => {
+      setIsPlaying(false);
+      setProgress(100);
+    };
+
+    video.addEventListener("loadedmetadata", onLoadedMetadata);
+    video.addEventListener("play", onPlay);
+    video.addEventListener("pause", onPause);
+    video.addEventListener("ended", onEnded);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", onLoadedMetadata);
+      video.removeEventListener("play", onPlay);
+      video.removeEventListener("pause", onPause);
+      video.removeEventListener("ended", onEnded);
+    };
+  }, []);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play().then(() => setIsPlaying(true)).catch(() => {});
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const restartVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.currentTime = 0;
+    video.play().then(() => setIsPlaying(true)).catch(() => {});
+    setProgress(0);
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    setIsMuted(nextMuted);
+  };
+
+  // Calculate ratio from clientX and apply seek
+  const seekToClientX = useCallback((clientX: number) => {
+    const video = videoRef.current;
+    const bar = progressBarRef.current;
+    if (!video || !bar || !video.duration) return;
+
+    const rect = bar.getBoundingClientRect();
+    const clampedX = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const ratio = clampedX / rect.width;
+
+    video.currentTime = ratio * video.duration;
+    setProgress(ratio * 100);
+  }, []);
+
+  // Smooth Drag & Slide Handlers
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const video = videoRef.current;
+    if (!video || !video.duration) return;
+
+    isDraggingRef.current = true;
+    wasPlayingBeforeDragRef.current = !video.paused;
+
+    seekToClientX(e.clientX);
+
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      if (!isDraggingRef.current) return;
+      seekToClientX(moveEvent.clientX);
+    };
+
+    const onPointerUp = () => {
+      isDraggingRef.current = false;
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+
+      if (wasPlayingBeforeDragRef.current && videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+  };
 
   return (
     <section 
       id="home" 
-      className="relative min-h-[100svh] flex items-center pt-28 pb-16 lg:py-0 overflow-hidden bg-white group"
-      onMouseMove={handleMouseMove}
+      className="relative min-h-[100dvh] flex items-center pt-28 pb-20 lg:py-28 bg-[#fafafa] text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
     >
-      {/* Interactive Hover Glow Background (Antigravity Cursor Follower) */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0 mix-blend-multiply"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              700px circle at ${mouseX}px ${mouseY}px,
-              rgba(66, 133, 244, 0.25) 0%,
-              rgba(234, 67, 53, 0.15) 35%,
-              rgba(251, 188, 4, 0.1) 60%,
-              rgba(52, 168, 83, 0.05) 80%,
-              transparent 100%
-            )
-          `,
-        }}
-      />
+      {/* Subtle Background Architectural Grid */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
 
-      {/* Interactive Ambient Parallax Blobs (Antigravity Style) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40 z-0">
-         <motion.div 
-            style={{ x: blob1X, y: blob1Y }}
-            className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-[#4285F4] opacity-20 blur-[120px]" 
-         />
-         <motion.div 
-            style={{ x: blob2X, y: blob2Y }}
-            className="absolute top-[30%] -left-[10%] w-[40%] h-[40%] rounded-full bg-[#EA4335] opacity-15 blur-[100px]" 
-         />
-         <motion.div 
-            style={{ x: blob3X, y: blob3Y }}
-            className="absolute bottom-[0%] right-[10%] w-[40%] h-[40%] rounded-full bg-[#FBBC04] opacity-20 blur-[100px]" 
-         />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 max-w-7xl relative z-10">
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20 xl:gap-32">
+      {/* 10% left and right margin on big/laptop screens */}
+      <div className="w-full px-4 sm:px-6 lg:px-[10vw] relative z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-16">
           
-          {/* Left Text Content */}
+          {/* Left Text Column */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full lg:w-[50%] text-center lg:text-left relative z-10 flex flex-col items-center lg:items-start"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full lg:w-[58%] flex flex-col items-center lg:items-start text-center lg:text-left"
           >
-            <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 bg-white shadow-sm border border-gray-100 rounded-full text-sm font-medium text-gray-700">
-              <div className="flex gap-1 items-center">
-                <span className="w-2 h-2 rounded-full bg-[#4285F4]"></span>
-                <span className="w-2 h-2 rounded-full bg-[#EA4335]"></span>
-                <span className="w-2 h-2 rounded-full bg-[#FBBC04]"></span>
-                <span className="w-2 h-2 rounded-full bg-[#34A853]"></span>
-              </div>
-              <span className="ml-1">Open to Content & Creator Specialist Roles</span>
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-neutral-200 bg-white/80 backdrop-blur-sm text-xs font-mono text-neutral-800 shadow-xs mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Senior Associate, Operations @ Physics Wallah</span>
             </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tighter text-gray-900 mb-6 font-['Product_Sans',_Roboto,_sans-serif] leading-tight flex flex-col items-center lg:items-start">
-              <span>Hi, I'm</span>
-              <span className="inline-block mt-0 sm:mt-1">
-                <span className="text-[#4285F4]">A</span>
-                <span className="text-[#EA4335]">n</span>
-                <span className="text-[#FBBC04]">u</span>
-                <span className="text-[#34A853]">j</span>
-              </span>
+
+            {/* Main Heading with Outfit */}
+            <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-950 mb-3 leading-[1.05]">
+              Anuj Yadav
             </h1>
-            
-            <p className="text-base md:text-lg xl:text-xl text-gray-600 mb-8 max-w-xl lg:max-w-md xl:max-w-xl leading-relaxed text-center lg:text-left">
-              Content & Operations Specialist. Reviewed and supervised 900+ scripts and videos for quality and compliance at <strong className="font-extrabold text-[#4285F4]">Physics Wallah</strong>. Expert in leveraging data and spreadsheets to investigate trends, drive strategy, and manage large-scale content pipelines securely.
+            <p className="font-heading text-2xl sm:text-3xl font-semibold text-neutral-600 mb-6 tracking-tight">
+              Operations & Content Specialist
             </p>
-            
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+
+            {/* Meta details bar */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-5 text-xs sm:text-sm text-neutral-500 mb-6 font-mono">
+              <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-md border border-neutral-200">
+                <MapPin className="w-3.5 h-3.5 text-neutral-700" />
+                Sector 62, Noida
+              </span>
               <a 
-                href="https://drive.google.com/file/d/1JgkprImqecIZ2UEGocsSNo81IHE6R95N/view?usp=sharing" 
+                href="tel:+916393082589" 
+                className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-md border border-neutral-200 hover:border-neutral-900 text-neutral-700 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-neutral-700" />
+                +91 6393082589
+              </a>
+              <a 
+                href="mailto:infoanuj74@gmail.com" 
+                className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-md border border-neutral-200 hover:border-neutral-900 text-neutral-700 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5 text-neutral-700" />
+                infoanuj74@gmail.com
+              </a>
+            </div>
+
+            {/* Executive Bio */}
+            <p className="text-base sm:text-lg md:text-[18px] text-neutral-600 leading-[1.8] mb-8 max-w-2xl font-normal">
+              Operations and content professional with <strong className="font-semibold text-neutral-950">5.5 years of experience</strong> across 
+              EdTech operations, influencer marketing, video production, and social media management. Currently orchestrating influencer deals, faculty coordination, 
+              quality governance, CMS pipelines, and cross-functional teams at <strong className="font-semibold text-neutral-950">Physics Wallah</strong>. Skilled in building SOPs 
+              and leveraging AI workflows and automation scripts to systematize daily work.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto">
+              <a 
+                href="#contact" 
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-neutral-950 text-white px-8 py-3.5 rounded-xl text-sm font-semibold tracking-wide hover:bg-neutral-800 transition-all shadow-md shadow-neutral-950/10 active:scale-[0.98]"
+              >
+                Get in Touch
+              </a>
+              <a 
+                href="https://drive.google.com/file/d/1myNMIpEIrMn89H4ZOqMcDMzoqtStVfFw/view?usp=sharing" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2 bg-[#4285F4] text-white px-8 py-3.5 rounded-full font-medium transition-all hover:bg-[#3367D6] hover:shadow-lg hover:shadow-[#4285F4]/20 active:scale-95 w-full sm:w-auto justify-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-neutral-300 bg-white text-neutral-950 px-8 py-3.5 rounded-xl text-sm font-semibold hover:border-neutral-900 hover:bg-neutral-50 transition-all shadow-xs active:scale-[0.98]"
               >
-                <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
+                <Download className="w-4 h-4" />
                 Download Resume
               </a>
               <a 
-                href="#projects" 
-                className="group flex items-center gap-2 bg-white text-gray-700 border border-gray-200 px-8 py-3.5 rounded-full font-medium transition-all hover:bg-gray-50 hover:border-gray-300 active:scale-95 w-full sm:w-auto justify-center"
+                href="#experience" 
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-neutral-500 hover:text-neutral-950 text-sm font-medium py-3 px-3 transition-colors"
               >
-                View Content Operations
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                View Experience
+                <ArrowDown className="w-4 h-4" />
               </a>
+            </div>
+
+            {/* Stat Highlights Cards */}
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-8 mt-8 border-t border-neutral-200/80 w-full max-w-xl text-center lg:text-left">
+              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-3 sm:p-4 shadow-xs">
+                <p className="font-heading text-2xl sm:text-3xl font-extrabold text-neutral-950">5.5+</p>
+                <p className="text-[11px] sm:text-xs text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Years Exp</p>
+              </div>
+              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-3 sm:p-4 shadow-xs">
+                <p className="font-heading text-2xl sm:text-3xl font-extrabold text-neutral-950">900+</p>
+                <p className="text-[11px] sm:text-xs text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Scripts & QA</p>
+              </div>
+              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-3 sm:p-4 shadow-xs">
+                <p className="font-heading text-2xl sm:text-3xl font-extrabold text-neutral-950">50+</p>
+                <p className="text-[11px] sm:text-xs text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Creators Managed</p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Image Content */}
+          {/* Right Video Player Column (Completely Borderless & Smooth Bottom Shadow) */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            style={{ x: imageParallaxX, y: imageParallaxY }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="w-full lg:w-[45%] flex justify-center lg:justify-end mt-8 lg:mt-0"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="w-full lg:w-[40%] flex flex-col items-center justify-center"
           >
-            <div className="relative w-full max-w-[260px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[380px] xl:max-w-[420px]">
-              {/* Profile Image with 5% precise curve + floating parallax */}
-              <div className="relative overflow-hidden w-full h-auto shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] group-hover:shadow-[0_30px_70px_-15px_rgba(66,133,244,0.15)] transition-shadow duration-700 bg-gray-50/50" style={{ borderRadius: "5%" }}>
-                 <motion.img 
-                   src="/profile.webp" 
-                   alt="Anuj Yadav" 
-                   className="w-full h-auto object-cover"
-                   whileHover={{ scale: 1.03 }}
-                   transition={{ duration: 0.5, ease: "easeOut" }}
-                 />
+            {/* Edge-to-edge container without any black border or dark background */}
+            <div className="relative w-full max-w-[280px] sm:max-w-[310px] md:max-w-[325px] aspect-[9/16] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] group select-none bg-transparent">
+              
+              {/* Native Clean Video - scaled 101% to prevent any subpixel background lines */}
+              <video
+                ref={videoRef}
+                src="/intro_video.mp4"
+                playsInline
+                preload="metadata"
+                onClick={togglePlay}
+                className="w-full h-full object-cover scale-[1.01] cursor-pointer block"
+              />
+
+              {/* Ultra-Smooth Feathery Bottom Shadow with Custom Controls */}
+              <div 
+                className="absolute bottom-0 inset-x-0 z-30 pt-16 pb-4 px-4 bg-gradient-to-t from-black/75 via-black/35 to-transparent flex items-center gap-3 text-white"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* 1. Play / Pause Button */}
+                <button
+                  type="button"
+                  onClick={togglePlay}
+                  className="p-1 text-white hover:text-neutral-300 transition-colors shrink-0"
+                  aria-label={isPlaying ? "Pause video" : "Play video"}
+                  title={isPlaying ? "Pause" : "Play"}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4 fill-white" />
+                  ) : (
+                    <Play className="w-4 h-4 fill-white" />
+                  )}
+                </button>
+
+                {/* 2. Replay / Restart Button */}
+                <button
+                  type="button"
+                  onClick={restartVideo}
+                  className="p-1 text-white hover:text-neutral-300 transition-colors shrink-0"
+                  aria-label="Replay video"
+                  title="Replay from start"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
+
+                {/* 3. Buttery-Smooth Draggable & Scrubbable Timeline Bar */}
+                <div 
+                  ref={progressBarRef}
+                  onPointerDown={handlePointerDown}
+                  className="relative flex-1 h-7 flex items-center cursor-pointer group/bar touch-none"
+                  title="Drag or click to seek video"
+                >
+                  {/* Track Background Line */}
+                  <div className="w-full h-1.5 bg-white/30 rounded-full relative overflow-visible">
+                    {/* Active Track Progress Fill */}
+                    <div 
+                      className="h-full bg-white rounded-full will-change-[width]"
+                      style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+                    />
+                    {/* Circular Scrubber Knob Thumb */}
+                    <div 
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-white rounded-full shadow-[0_1px_5px_rgba(0,0,0,0.6)] cursor-grab active:cursor-grabbing hover:scale-125 transition-transform"
+                      style={{ left: `${Math.min(100, Math.max(0, progress))}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* 4. Speaker / Volume Button */}
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="p-1 text-white hover:text-neutral-300 transition-colors shrink-0"
+                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                  title={isMuted ? "Unmute" : "Mute"}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4 text-neutral-400" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-white" />
+                  )}
+                </button>
               </div>
+
             </div>
           </motion.div>
 

@@ -1,12 +1,31 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
-  title: "Anuj Yadav | Content & Marketing Operations",
-  description: "Portfolio of Anuj Yadav, specializing in cloud operations, creator management, and data-driven marketing.",
+  title: "Anuj Yadav — Operations & Content Specialist",
+  description: "Operations & content professional with 5.5 years of experience across EdTech operations, influencer marketing, video production, and social media management.",
   icons: {
     icon: "/icon.png",
   },
@@ -18,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth bg-white text-gray-900">
-      <body className={`${inter.className} min-h-screen bg-white text-gray-900 selection:bg-blue-600 selection:text-white`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-[#fafafa] text-[#121212] antialiased selection:bg-neutral-900 selection:text-white`}>
         {children}
       </body>
     </html>

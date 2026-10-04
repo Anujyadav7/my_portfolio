@@ -1,32 +1,21 @@
+import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Experience from "./components/Experience";
+import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Creators from "./components/Creators";
-import Skills from "./components/Skills";
 import Contact from "./components/Contact";
-import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <main className="bg-white min-h-screen text-gray-900">
-       <Navbar />
-       
-       <Hero />
-
-       <section id="projects">
-         <Projects />
-       </section>
-       
-       <section id="skills">
-         <Skills />
-       </section>
-       
-       <section id="collaborations">
-         <Creators />
-       </section>
-       
-       <section id="contact">
-         <Contact />
-       </section>
+    <main className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-950 selection:text-white">
+      <Navbar />
+      <Hero />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Creators />
+      <Contact />
     </main>
   );
 }

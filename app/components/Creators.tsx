@@ -2,104 +2,81 @@
 
 import { motion } from "framer-motion";
 import { creators } from "../data/creators";
-import { Instagram } from "lucide-react";
-
-import { useState, useEffect } from "react";
+import { Instagram, ArrowUpRight, Users2 } from "lucide-react";
+import { useState } from "react";
 
 const CreatorCard = ({ creator }: { creator: typeof creators[0] }) => {
-  const getUsername = (url: string) => {
-    try {
-      const urlObj = new URL(url);
-      const pathSegments = urlObj.pathname.split("/").filter(Boolean);
-      return pathSegments[0] || "";
-    } catch {
-      return "";
-    }
-  };
+  const [imgError, setImgError] = useState(false);
 
-  const username = getUsername(creator.instagram);
-  const isValidUsername = username && !['reel', 'p', 'stories', 'explore'].includes(username);
-
-  // Fallbacks
-  const diceBearUrl = `https://api.dicebear.com/9.x/avataaars/svg?seed=${username || creator.name}`;
-  const unavatarUrl = isValidUsername
-      ? `https://unavatar.io/${username}?fallback=${encodeURIComponent(diceBearUrl)}`
-      : diceBearUrl;
-
-  const initialImage = creator.image || unavatarUrl;
-  const [imgSrc, setImgSrc] = useState(initialImage);
-
-  useEffect(() => {
-    // Progressively enhance with real high-res image from internal API (proxied via Threads)
-    // Only fetch if we rely on generated/unavatar images, not if manual image overrides.
-    if (isValidUsername && !creator.image) {
-      const fetchRealProfile = async () => {
-        try {
-          const res = await fetch(`/api/creator?username=${username}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.image) {
-              setImgSrc(data.image);
-            }
-          }
-        } catch (error) {
-          console.error("Failed to fetch real profile:", error);
-        }
-      };
-
-      const timeout = setTimeout(fetchRealProfile, Math.random() * 2000);
-      return () => clearTimeout(timeout);
-    }
-  }, [username, isValidUsername, creator.image]);
+  const fallbackAvatar = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(creator.name)}&backgroundColor=000000&textColor=ffffff`;
 
   return (
     <motion.a
-        href={creator.instagram}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex flex-col items-center justify-center bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 hover:shadow-lg hover:shadow-gray-200 transition-all hover:-translate-y-1 group flex-shrink-0 w-[240px] sm:w-[280px] md:w-[320px] snap-center text-center"
+      href={creator.instagram}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex flex-col items-center justify-center bg-white border border-neutral-200/80 rounded-2xl p-5 sm:p-6 hover:border-neutral-950 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group shrink-0 w-[210px] sm:w-[230px] md:w-[250px] snap-center text-center shadow-xs"
     >
-        <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50 rounded-full flex-shrink-0 relative overflow-hidden group-hover:ring-4 group-hover:ring-blue-100 transition-all mb-4 sm:mb-6">
-            <img 
-                src={imgSrc}
-                alt={creator.name}
-                className="absolute inset-0 w-full h-full object-cover z-10"
-                loading="lazy"
-            />
+      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-neutral-100 rounded-full shrink-0 relative overflow-hidden mb-4 border-2 border-neutral-100 group-hover:border-neutral-950 transition-colors shadow-sm">
+        <img 
+          src={imgError ? fallbackAvatar : (creator.image || fallbackAvatar)}
+          alt={creator.name}
+          onError={() => setImgError(true)}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+      
+      <div className="w-full">
+        <h3 className="font-heading text-base sm:text-lg font-bold text-neutral-950 truncate mb-1 group-hover:text-neutral-950">
+          {creator.name}
+        </h3>
+        <div className="inline-flex items-center gap-1.5 text-xs text-neutral-500 font-mono">
+          <Instagram className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-950 transition-colors" />
+          <span>{creator.followers}</span>
         </div>
-        
-        <div className="overflow-hidden w-full">
-            <h3 className="text-lg font-bold text-gray-900 truncate mb-1 group-hover:text-blue-600 transition-colors">
-            {creator.name}
-            </h3>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-gray-500">
-                <Instagram className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
-                <span className="font-medium">{creator.followers}</span>
-            </div>
-        </div>
+      </div>
+
+      <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-[11px] font-mono text-neutral-950 font-medium">
+        <span>View Instagram</span>
+        <ArrowUpRight className="w-3 h-3" />
+      </div>
     </motion.a>
   );
 };
 
 export default function Creators() {
   return (
-    <section className="py-20 md:py-32 bg-gray-50 relative z-10 border-t border-gray-100">
-      <div className="container mx-auto px-4 sm:px-6 mb-10 md:mb-12 text-center">
-         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-             Collaborations & Network
-         </h2>
-         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-             Executing scalable operations with the top 1% of creators globally.
-         </p>
-      </div>
-      
-      {/* Horizontal Scroll Container */}
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-8 scrollbar-hide py-4">
-           {creators.map((creator, idx) => (
-               <CreatorCard key={`${creator.name}-${idx}`} creator={creator} />
-           ))}
+    <section id="collaborations" className="py-24 md:py-32 bg-[#fafafa] border-b border-neutral-200/80">
+      <div className="w-full px-4 sm:px-6 lg:px-[10vw]">
+        
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-white text-xs font-mono uppercase tracking-wider text-neutral-700 mb-3 shadow-xs">
+              <Users2 className="w-3.5 h-3.5 text-neutral-900" />
+              <span>Talent Partnerships</span>
+            </div>
+            <h2 className="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-950">
+              Creators I've Worked With
+            </h2>
+            <p className="mt-3 text-neutral-600 text-base sm:text-lg max-w-xl font-normal">
+              Sourced, negotiated, and managed end-to-end campaigns with leading educational and finance creators.
+            </p>
+          </div>
+
+          <div className="text-xs font-mono text-neutral-500 bg-white px-3 py-1.5 rounded-lg border border-neutral-200 shadow-2xs">
+            Swipe / Scroll horizontally →
+          </div>
         </div>
+
+        {/* Horizontal Scroll Showcase */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 pt-2 scrollbar-thin">
+          {creators.map((creator, idx) => (
+            <CreatorCard key={`${creator.name}-${idx}`} creator={creator} />
+          ))}
+        </div>
+
       </div>
     </section>
   );
