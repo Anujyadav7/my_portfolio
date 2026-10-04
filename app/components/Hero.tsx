@@ -148,38 +148,38 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-[100dvh] lg:min-h-0 lg:h-[calc(100dvh-4.5rem)] lg:max-h-[820px] flex items-center pt-24 pb-12 lg:py-0 bg-[#fafafa] text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
+      className="relative w-full pt-20 lg:pt-22 pb-8 lg:pb-8 min-h-[calc(100vh-4rem)] flex items-center bg-[#fafafa] text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
     >
       {/* Subtle Background Architectural Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
 
       {/* 10% left and right margin on big/laptop screens */}
       <div className="w-full px-4 sm:px-6 lg:px-[10vw] relative z-10">
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-12 xl:gap-16">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-6 lg:gap-10 xl:gap-14">
           
           {/* Left Text Column */}
           <motion.div 
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="w-full lg:w-[60%] flex flex-col items-center lg:items-start text-center lg:text-left"
           >
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 bg-white/80 backdrop-blur-sm text-[11px] sm:text-xs font-mono text-neutral-800 shadow-2xs mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 bg-white text-[11px] sm:text-xs font-mono text-neutral-800 shadow-2xs mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Senior Associate, Operations @ Physics Wallah</span>
             </div>
 
-            {/* Main Heading (Adjusted size for single-viewport fit) */}
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-5xl xl:text-[54px] font-extrabold tracking-tight text-neutral-950 mb-2 leading-[1.08]">
+            {/* Main Heading - Clean Proportional Hierarchy */}
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-neutral-950 mb-1.5 leading-[1.08]">
               Anuj Yadav
             </h1>
-            <p className="font-heading text-xl sm:text-2xl font-semibold text-neutral-600 mb-4 tracking-tight">
+            <p className="font-heading text-lg sm:text-xl font-semibold text-neutral-600 mb-3 tracking-tight">
               Operations & Content Specialist
             </p>
 
             {/* Meta details bar */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-y-1.5 gap-x-3 text-xs text-neutral-500 mb-4 font-mono">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-y-1.5 gap-x-2.5 text-xs text-neutral-500 mb-3.5 font-mono">
               <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-md border border-neutral-200">
                 <MapPin className="w-3.5 h-3.5 text-neutral-700" />
                 Sector 62, Noida
@@ -201,7 +201,7 @@ export default function Hero() {
             </div>
 
             {/* Executive Bio */}
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6 max-w-xl font-normal">
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-4 max-w-xl font-normal">
               Operations and content professional with <strong className="font-semibold text-neutral-950">5.5 years of experience</strong> across 
               EdTech operations, influencer marketing, video production, and social media management. Currently orchestrating influencer deals, faculty coordination, 
               quality governance, CMS pipelines, and cross-functional teams at <strong className="font-semibold text-neutral-950">Physics Wallah</strong>. Skilled in building SOPs 
@@ -209,7 +209,7 @@ export default function Hero() {
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto mb-4">
               <a 
                 href="#contact" 
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-neutral-950 text-white px-6 py-2.5 rounded-lg text-xs sm:text-sm font-semibold tracking-wide hover:bg-neutral-800 transition-all shadow-sm active:scale-[0.98]"
@@ -222,7 +222,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-neutral-300 bg-white text-neutral-950 px-6 py-2.5 rounded-lg text-xs sm:text-sm font-semibold hover:border-neutral-900 hover:bg-neutral-50 transition-all shadow-2xs active:scale-[0.98]"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-3.5 h-3.5" />
                 Download Resume
               </a>
               <a 
@@ -235,31 +235,31 @@ export default function Hero() {
             </div>
 
             {/* Stat Highlights Cards */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-5 mt-5 border-t border-neutral-200/80 w-full max-w-lg text-center lg:text-left">
-              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-2.5 sm:p-3 shadow-2xs">
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5 pt-3.5 border-t border-neutral-200/80 w-full max-w-lg text-center lg:text-left">
+              <div className="bg-white border border-neutral-200/80 rounded-xl p-2 sm:p-2.5 shadow-2xs">
                 <p className="font-heading text-xl sm:text-2xl font-extrabold text-neutral-950">5.5+</p>
                 <p className="text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Years Exp</p>
               </div>
-              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-2.5 sm:p-3 shadow-2xs">
+              <div className="bg-white border border-neutral-200/80 rounded-xl p-2 sm:p-2.5 shadow-2xs">
                 <p className="font-heading text-xl sm:text-2xl font-extrabold text-neutral-950">900+</p>
                 <p className="text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Scripts & QA</p>
               </div>
-              <div className="bg-white/80 border border-neutral-200/80 rounded-xl p-2.5 sm:p-3 shadow-2xs">
+              <div className="bg-white border border-neutral-200/80 rounded-xl p-2 sm:p-2.5 shadow-2xs">
                 <p className="font-heading text-xl sm:text-2xl font-extrabold text-neutral-950">50+</p>
                 <p className="text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-wider font-mono mt-0.5">Creators Managed</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Video Player Column (Proportionally sized to guarantee single-screen fit) */}
+          {/* Right Video Player Column */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="w-full lg:w-[38%] flex flex-col items-center justify-center"
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="w-full lg:w-[38%] flex flex-col items-center justify-center shrink-0"
           >
-            {/* Proportionally sized container - fits completely above fold */}
-            <div className="relative w-full max-w-[210px] sm:max-w-[230px] lg:max-w-[245px] xl:max-w-[260px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.1)] group select-none bg-transparent">
+            {/* Viewport-bounded 9:16 Video Container */}
+            <div className="relative w-auto h-[min(380px,48vh)] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-neutral-900/10 group select-none bg-neutral-950">
               
               {/* Native Clean Video */}
               <video
@@ -273,7 +273,7 @@ export default function Hero() {
 
               {/* Feathered Bottom Controls */}
               <div 
-                className="absolute bottom-0 inset-x-0 z-30 pt-14 pb-3.5 px-3 bg-gradient-to-t from-black/75 via-black/35 to-transparent flex items-center gap-2.5 text-white"
+                className="absolute bottom-0 inset-x-0 z-30 pt-12 pb-3 px-3 bg-gradient-to-t from-black/75 via-black/35 to-transparent flex items-center gap-2.5 text-white"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* 1. Play / Pause Button */}
@@ -318,7 +318,7 @@ export default function Hero() {
                     />
                     {/* Circular Scrubber Knob Thumb */}
                     <div 
-                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.6)] cursor-grab active:cursor-grabbing hover:scale-125 transition-transform"
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.6)] cursor-grab active:cursor-grabbing hover:scale-125 transition-transform"
                       style={{ left: `${Math.min(100, Math.max(0, progress))}%` }}
                     />
                   </div>
