@@ -164,11 +164,6 @@ export default function Hero() {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="w-full lg:flex-1 lg:max-w-2xl xl:max-w-3xl flex flex-col items-center lg:items-start text-center lg:text-left"
           >
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-white text-xs sm:text-sm font-mono text-neutral-800 shadow-2xs mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Senior Associate, Operations @ Physics Wallah</span>
-            </div>
 
             {/* Main Heading */}
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-neutral-950 mb-1.5 leading-[1.08]">
