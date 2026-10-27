@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import TetherFilms from "./components/TetherFilms";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Skills from "./components/Skills";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-950 selection:text-white">
       <Navbar />
+      <TetherFilms />
       <Hero />
       <Experience />
       <Skills />

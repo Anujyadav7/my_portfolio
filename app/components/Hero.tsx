@@ -148,7 +148,7 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative w-full pt-20 lg:pt-20 pb-6 lg:pb-8 min-h-[calc(100vh-4rem)] flex items-center bg-[#fafafa] text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
+      className="relative w-full py-16 lg:py-20 flex items-center bg-[#fafafa] text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
     >
       {/* Subtle Background Architectural Grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
@@ -177,7 +177,7 @@ export default function Hero() {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-3 text-xs sm:text-sm text-neutral-600 mb-4 font-mono">
               <span className="inline-flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-md border border-neutral-200 shadow-2xs">
                 <MapPin className="w-3.5 h-3.5 text-neutral-800" />
-                Sector 62, Noida
+                India Noida Sector 62
               </span>
               <a 
                 href="tel:+916393082589" 
@@ -211,7 +211,7 @@ export default function Hero() {
                 Get in Touch
               </a>
               <a 
-                href="https://drive.google.com/file/d/1myNMIpEIrMn89H4ZOqMcDMzoqtStVfFw/view?usp=sharing" 
+                href="https://drive.google.com/file/d/1ekFOsWYUrsy8Hh13EFClbaUFJBvBRStd/view?usp=sharing" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-neutral-300 bg-white text-neutral-950 px-6 py-3 rounded-lg text-sm sm:text-base font-semibold hover:border-neutral-900 hover:bg-neutral-50 transition-all shadow-2xs active:scale-[0.98]"

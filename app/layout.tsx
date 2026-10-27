@@ -37,8 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-[#fafafa] text-[#121212] antialiased selection:bg-neutral-900 selection:text-white`}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body 
+        suppressHydrationWarning
+        className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-[#fafafa] text-[#121212] antialiased selection:bg-neutral-900 selection:text-white`}
+      >
         {children}
       </body>
     </html>

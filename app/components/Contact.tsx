@@ -84,7 +84,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-xs uppercase font-mono text-neutral-500">Location</p>
-                    <p className="text-neutral-950 font-medium mt-0.5">Sector 62, Noida, India</p>
+                    <p className="text-neutral-950 font-medium mt-0.5">India Noida Sector 62</p>
                   </div>
                 </div>
 
@@ -157,7 +157,7 @@ export default function Contact() {
 
               <div className="pt-5 border-t border-neutral-200/60">
                 <a
-                  href="https://drive.google.com/file/d/1myNMIpEIrMn89H4ZOqMcDMzoqtStVfFw/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1ekFOsWYUrsy8Hh13EFClbaUFJBvBRStd/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-neutral-300 bg-white text-xs font-semibold text-neutral-950 hover:border-neutral-950 hover:bg-neutral-50 transition-colors shadow-2xs"
@@ -256,8 +256,8 @@ export default function Contact() {
 
         {/* Minimal Footer */}
         <div className="mt-24 pt-8 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
-          <p>© {new Date().getFullYear()} Anuj Yadav. All rights reserved.</p>
-          <p>Sector 62, Noida • +91 6393082589 • infoanuj74@gmail.com</p>
+          <p suppressHydrationWarning>© 2026 Anuj Yadav. All rights reserved.</p>
+          <p>India Noida Sector 62 • +91 6393082589 • infoanuj74@gmail.com</p>
         </div>
 
       </div>
