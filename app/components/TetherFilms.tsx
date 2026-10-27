@@ -9,12 +9,14 @@ export default function TetherFilms() {
   return (
     <section 
       id="tether-films" 
+      suppressHydrationWarning
       className="relative w-full pt-20 sm:pt-24 pb-16 bg-white text-neutral-900 border-b border-neutral-200/80 overflow-hidden"
     >
       <div className="w-full px-4 sm:px-6 lg:px-[6vw] xl:px-[8vw] relative z-10">
         
         {/* Top Header: Welcome to Tether Hiring Team */}
         <motion.div
+          suppressHydrationWarning
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}

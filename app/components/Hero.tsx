@@ -304,14 +304,16 @@ export default function Hero() {
                   title="Drag or click to seek video"
                 >
                   {/* Track Background Line */}
-                  <div className="w-full h-1 bg-white/30 rounded-full relative overflow-visible">
+                  <div suppressHydrationWarning className="w-full h-1 bg-white/30 rounded-full relative overflow-visible">
                     {/* Active Track Progress Fill */}
                     <div 
+                      suppressHydrationWarning
                       className="h-full bg-white rounded-full will-change-[width]"
                       style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
                     />
                     {/* Circular Scrubber Knob Thumb */}
                     <div 
+                      suppressHydrationWarning
                       className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.6)] cursor-grab active:cursor-grabbing hover:scale-125 transition-transform"
                       style={{ left: `${Math.min(100, Math.max(0, progress))}%` }}
                     />

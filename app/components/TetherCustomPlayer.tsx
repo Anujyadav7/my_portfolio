@@ -278,12 +278,14 @@ export default function TetherCustomPlayer({ video }: TetherCustomPlayerProps) {
             className="relative flex-1 h-6 flex items-center cursor-pointer group/bar touch-none"
             title="Drag or click to seek video"
           >
-            <div className="w-full h-1 bg-white/30 rounded-full relative overflow-visible">
+            <div suppressHydrationWarning className="w-full h-1 bg-white/30 rounded-full relative overflow-visible">
               <div 
+                suppressHydrationWarning
                 className="h-full bg-white rounded-full will-change-[width]"
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
               />
               <div 
+                suppressHydrationWarning
                 className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.6)] cursor-grab active:cursor-grabbing hover:scale-125 transition-transform"
                 style={{ left: `${Math.min(100, Math.max(0, progress))}%` }}
               />
@@ -291,7 +293,7 @@ export default function TetherCustomPlayer({ video }: TetherCustomPlayerProps) {
           </div>
 
           {/* Time Stamp */}
-          <span className="text-[10px] font-mono text-white/80 tabular-nums shrink-0">
+          <span suppressHydrationWarning className="text-[10px] font-mono text-white/80 tabular-nums shrink-0">
             {formatTime(currentTime)}
           </span>
 

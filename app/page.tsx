@@ -9,7 +9,7 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-950 selection:text-white">
+    <main suppressHydrationWarning className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-950 selection:text-white">
       <Navbar />
       <TetherFilms />
       <Hero />
