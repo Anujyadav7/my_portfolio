@@ -31,9 +31,9 @@ const projects = [
   {
     title: "Personal YouTube Channel",
     category: "Independent Production & Channel Growth",
-    description: "Built and actively manage a dedicated YouTube channel from zero to 260 subscribers. Independently execute the full production lifecycle: content ideation, scripting, high-retention video editing, thumbnail design, and channel analytics optimization.",
+    description: "Built and actively manage a dedicated YouTube channel from zero to 260K subscribers. Independently execute the full production lifecycle: content ideation, scripting, high-retention video editing, thumbnail design, and channel analytics optimization.",
     metrics: [
-      { label: "Audience Growth", value: "0 to 260" },
+      { label: "Audience Growth", value: "0 to 260K" },
       { label: "Solo Execution", value: "100%" },
       { label: "Production", value: "End-to-End" }
     ],

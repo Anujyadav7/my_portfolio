@@ -61,7 +61,7 @@ export default function Experience() {
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-neutral-600 shrink-0">
                   <span className="inline-flex items-center gap-1.5 bg-neutral-50 px-2.5 py-1 rounded-md border border-neutral-200">
                     <Calendar className="w-3.5 h-3.5 text-neutral-500" />
-                    Apr 2025 - Present
+                    May 2025 - Present
                   </span>
                   <span className="inline-flex items-center gap-1.5 bg-neutral-50 px-2.5 py-1 rounded-md border border-neutral-200">
                     <MapPin className="w-3.5 h-3.5 text-neutral-500" />
@@ -235,14 +235,14 @@ export default function Experience() {
                     Previous Position
                   </span>
                   <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-neutral-950">
-                    Freelance & Social Media Manager <span className="font-semibold text-neutral-600">— Independent Practice</span>
+                    Freelance Video Editor & AI Content Creator <span className="font-semibold text-neutral-600">— Independent Practice</span>
                   </h3>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-neutral-600 shrink-0">
                   <span className="inline-flex items-center gap-1.5 bg-neutral-50 px-2.5 py-1 rounded-md border border-neutral-200">
                     <Calendar className="w-3.5 h-3.5 text-neutral-500" />
-                    Apr 2021 - 2025
+                    Apr 2021 - Present
                   </span>
                   <span className="inline-flex items-center gap-1.5 bg-neutral-50 px-2.5 py-1 rounded-md border border-neutral-200">
                     <MapPin className="w-3.5 h-3.5 text-neutral-500" />
@@ -284,7 +284,7 @@ export default function Experience() {
                   <ul className="space-y-2.5 text-neutral-600 text-xs sm:text-sm leading-relaxed mb-6">
                     <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 mt-1.5 shrink-0" />
-                      <span>Edit high-retention short and long-form videos for multiple clients</span>
+                      <span>Edit short-form and long-form videos in Premiere Pro, After Effects, DaVinci Resolve and CapCut, from rough cut to colour, sound, subtitles and final export</span>
                     </li>
                     <li className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 mt-1.5 shrink-0" />

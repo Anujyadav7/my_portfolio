@@ -1,60 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Settings, Megaphone, Video, Cpu, Layers } from "lucide-react";
+import { Sparkles, Video, Megaphone, Cpu, Layers } from "lucide-react";
 
 const skillCategories = [
   {
-    title: "Operations & Governance",
-    icon: <Settings className="w-5 h-5 text-neutral-950" />,
-    description: "Systematizing high-volume daily execution, SOP standardization, faculty operations, and cross-team workflow governance.",
+    title: "AI Filmmaking & Generative Tools",
+    icon: <Sparkles className="w-5 h-5 text-neutral-950" />,
+    description: "End-to-end AI video and image pipelines from concept, character sheets, and generation to sound and subtitles.",
     skills: [
-      "Operations Management",
-      "Process Improvement",
-      "SOP Development",
-      "Quality Assurance (QA)",
-      "Team Management",
-      "Faculty Coordination",
-      "Workflow Governance"
+      "AI Video: Seedance, Google Veo (Flow), MiniMax, LTX",
+      "AI Images: Higgsfield, OpenArt AI",
+      "Prompt Engineering (Image & Video)",
+      "Character Design & Consistency",
+      "AI Tools: ChatGPT, Claude, Gemini, Canva"
     ]
   },
   {
-    title: "Influencer & Content Strategy",
-    icon: <Megaphone className="w-5 h-5 text-neutral-950" />,
-    description: "End-to-end creator scouting, high-volume contract negotiation, and content direction.",
-    skills: [
-      "Influencer Marketing",
-      "Outreach & Deal Negotiation",
-      "Content Ideation",
-      "Script & Video Review",
-      "User Feedback & App Improvement",
-      "Cross-functional Collaboration"
-    ]
-  },
-  {
-    title: "Media Production & Channels",
+    title: "Video Editing & Post-Production",
     icon: <Video className="w-5 h-5 text-neutral-950" />,
-    description: "Hands-on multimedia production, pacing, and social channel scaling.",
+    description: "Multi-software video editing, retention-focused pacing, colour grading, sound design, and multi-format delivery.",
     skills: [
-      "Video Editing (Shorts & Long-form)",
-      "Creative Design & Thumbnails",
-      "YouTube Channel Management",
-      "Instagram Operations",
-      "Publishing Schedules & Retention",
-      "Community Moderation"
+      "Premiere Pro",
+      "After Effects",
+      "DaVinci Resolve",
+      "CapCut",
+      "Colour Grading",
+      "Sound Design & Audio Foley",
+      "Social Media Video (YouTube, Reels, Shorts)",
+      "Subtitles & Captions"
     ]
   },
   {
-    title: "Technical & Automation",
-    icon: <Cpu className="w-5 h-5 text-neutral-950" />,
-    description: "Automating reporting pipelines and leveraging modern AI workflows.",
+    title: "Storytelling, QC & Marketing",
+    icon: <Megaphone className="w-5 h-5 text-neutral-950" />,
+    description: "Narrative architecture, shot planning, editorial quality control, influencer partnerships, and audience growth.",
     skills: [
-      "CMS Handling & Taxonomy",
-      "Data Scraping & Extraction",
-      "Google Sheets (Advanced Data)",
-      "Google Apps Script (Automation)",
-      "AI Tools (ChatGPT, Gemini, Claude)",
-      "Workflow Streamlining"
+      "Storytelling & Narrative Pacing",
+      "Scriptwriting & Shot Lists",
+      "Content Ideation",
+      "Script and Video QC",
+      "Digital Marketing",
+      "Influencer Campaigns",
+      "Deal Outreach & Negotiation",
+      "Creative Design & Thumbnails"
+    ]
+  },
+  {
+    title: "Operations, Leadership & Tech",
+    icon: <Cpu className="w-5 h-5 text-neutral-950" />,
+    description: "Standardizing team execution with SOPs, automated reporting pipelines, CMS governance, and web code.",
+    skills: [
+      "Project Management",
+      "SOPs & Team Leadership",
+      "Quality Assurance (QA)",
+      "Process Improvement",
+      "CMS Taxonomy & Handling",
+      "Google Sheets & Apps Script",
+      "HTML, CSS, JavaScript"
     ]
   }
 ];
